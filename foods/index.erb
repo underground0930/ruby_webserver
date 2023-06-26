@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+</head>
+<body>
+  <h1>Foods一覧</h1>
+  <form action="/foods" method="get">
+    <div style="display:flex">
+      <select name="category" id="foods">
+        <option value=""<%= @current_category == "all" && " selected" %>>全て</option>
+        <option value="fruits"<%= @current_category == "fruits" && " selected" %>>フルーツ</option>
+        <option value="vegetables"<%= @current_category == "vegetables" && " selected" %>>野菜</option>
+      </select>
+      <input type="submit" value="検索">
+    </div>
+  </form>
+  <ul>
+    <% @foods.each do |food| %>
+      <li><%= food[:name] %></li>
+    <% end %>
+  </ul>
+</body>
+</html>
