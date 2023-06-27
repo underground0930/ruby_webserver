@@ -26,9 +26,9 @@
    { id: 6, name: "レタス", category: "vegetables" },
  ]
  
- def check_param(arr, query)
+ def filter_category(query)
   category = query["category"]
-  if arr.any? { |child| child[:category] == category } 
+  if foods.any? { |food| food[:category] == category } 
     category
   else
     "all"
@@ -38,7 +38,7 @@
  server.mount_proc("/foods") do |req, res|
    template = ERB.new( File.read('./foods/index.erb') )
    # ここにロジックを書く
-   @current_category = check_param(foods, req.query)
+   @current_category = filter_category(req.query)
    @foods = @current_category == "all" ? foods : foods.filter { |food| food[:category] == @current_category }
    res.body << template.result( binding )
  end
