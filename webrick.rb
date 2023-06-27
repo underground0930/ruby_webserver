@@ -39,7 +39,11 @@
    template = ERB.new( File.read('./foods/index.erb') )
    # ここにロジックを書く
    @current_category = filter_category(req.query)
-   @foods = @current_category == "all" ? foods : foods.filter { |food| food[:category] == @current_category }
+   @foods = if @current_category == "all"
+              foods
+            else
+              foods.filter { |food| food[:category] == @current_category }
+            end
    res.body << template.result( binding )
  end
  
